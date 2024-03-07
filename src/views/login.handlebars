@@ -1,0 +1,14 @@
+<h1>LOGIN</h1>
+<form action="/users/login" method="post">
+  Email:
+  <input type="email" name="email" id="email" />
+  Password:
+  <input type="password" name="password" id="password" />
+  <input type="submit" value="LOGIN" />
+</form>
+
+<h2>¿Aún no te has registrado?</h2>
+<button onclick="location.href='/logs/register'">Registrarse</button>
+
+<h2>También puedes registrarte con GitHub</h2>
+<button onclick="location.href='/users/registerbygithub'">Registrarse con GitHub</button>

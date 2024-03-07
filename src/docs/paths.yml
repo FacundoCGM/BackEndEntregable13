@@ -1,0 +1,348 @@
+paths:
+  /api/products:
+    post:
+      tags: 
+      - products
+      summary: Post de un producto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyProducts'
+        required: true      
+      responses: 
+        200:
+          description: Se realizó el Post del producto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/PostProduct'
+        401: 
+         description: Error Not Authorized
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/Unauthorized'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+    get:
+      tags: 
+      - products
+      summary: Mostrar todos los productos     
+      responses: 
+        200:
+          description: Se realizó el Get de los productos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/GetAllProducts'
+        404: 
+         description: Error Not Found
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/NotFound'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+  /api/products/{pid}:
+    get:
+      tags: 
+      - products
+      summary: Buscar un producto por Id
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: id del producto a buscar
+          schema:
+            type: string
+      responses: 
+        200:
+          description: Se encontró el producto deseado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/PostProduct'
+        404: 
+         description: Error Not Found
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/NotFound'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+    put:
+      tags:
+      - products
+      summary: Actualización del producto por Id
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: Id del producto a actualizar
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyProducts'
+        required: true
+      responses: 
+        200:
+          description: Se actualizó el producto deseado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/PostProduct'
+        401: 
+         description: Error Not Authorized
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/Unauthorized'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+    delete:
+      tags:
+      - products
+      summary: Eliminar un producto ppor Id
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: Id del producto a liminar
+          schema:
+            type: string
+      responses: 
+        200:
+          description: Se actualizóeliminó el producto deseado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/PostProduct'
+        401: 
+         description: Error Not Authorized
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/Unauthorized'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+  /api/cart:
+    post:
+      tags:
+      - carts
+      summary: Crea un nuevo carrito
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyCart'
+          required: true
+      responses:
+        200:
+          description: Se creó el carrito correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/carts/PostCart'
+        404: 
+         description: Error Not Found
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/NotFound'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+  /api/cart/{cid}:
+    put:
+      tags:
+      - carts
+      summary: Cambiar arreglo de productos de un carrito
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: Id del carrito a actualizar
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/BodyCart'
+          required: true
+      responses: 
+        200:
+          description: Se actualizó el arreglo de productos deseado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/PostCart'
+        404: 
+         description: Error Not Found
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/NotFound'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+    delete:
+      tags:
+      - carts
+      summary: Eliminar un carrito
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          description: Id del carrito a eliminar
+          schema:
+            type: string
+      responses: 
+        200:
+          description: Se eliminó el producto deseado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/PostCart'
+        404: 
+         description: Error Not Found
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/NotFound'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+  /api/cart/{cid}/product/{pid}:
+    post:
+      tags:
+      - carts
+      summary: Agrega producto al carrito
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: Id del carrito al que se le agrega un producto
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            description: Id del producto
+      responses: 
+        200:
+          description: Se agregó el producto deseado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/PostCart'
+        404: 
+         description: Error Not Found
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/NotFound'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+    delete:
+      tags:
+      - carts
+      summary: Elimina producto al carrito
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+            description: Id del carrito al que se le elimina un producto
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+            description: Id del producto
+      responses: 
+        200:
+          description: Se eliminó el producto deseado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/PostCart'
+        404: 
+         description: Error Not Found
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/NotFound'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+  /api/cart/all:
+    get:
+      tags:
+      - carts
+      summary: Muestra todos los carritos
+      responses: 
+        200:
+          description: Se eliminó el producto deseado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/products/GetAllCarts'
+        401: 
+         description: Error Not Authorized
+         content:
+          application/json:
+            schema:
+              $ref: '#/components/schema/errors/Unauthorized'
+        500:
+          description: Error del servidor
+          content:
+            application/json:
+            schema:
+            $ref: '#/components/schema/errors/ServerError'
+
+      
+ 

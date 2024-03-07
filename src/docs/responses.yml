@@ -1,0 +1,139 @@
+components:
+  schema:
+    products:
+      PostProduct:
+        type: object
+        properties:
+          status:
+            type: boolean
+            description: Stauts del producto
+          title:
+            type: string
+            description: Titulo del producto
+          description:
+            type: string
+            description: Descripción del producto
+          price:
+            type: number
+            description: Precio del producto
+          thumbnails:
+            type: string
+            description: Thumbnail del producto
+          code:
+            type: number
+            description: Código del producto
+          stock:
+            type: number
+            description: Cantidad de stock del producto
+          category:
+            type: string
+            description: Categoría del producto
+      GetAllProducts:
+        type: array
+        items:
+          properties:
+            status:
+              type: boolean
+              description: Stauts del producto
+            title:
+              type: string
+              description: Titulo del producto
+            description:
+              type: string
+              description: Descripción del producto
+            price:
+              type: number
+              description: Precio del producto
+            thumbnails:
+              type: string
+              description: Thumbnail del producto
+            code:
+              type: number
+              description: Código del producto
+            stock:
+              type: number
+              description: Cantidad de stock del producto
+            category:
+              type: string
+              description: Categoría del producto
+    carts: 
+      PostCart:
+        type: object
+        properties:
+          product:
+            type: string
+            description: Id del producto
+          quantity:
+            type: number
+            description: Cantidad del producto
+      GetAllCarts:
+        type: array
+        items:
+          properties:
+            product:
+              type: string
+              description: Id del producto
+            quantity:
+              type: number
+              description: Cantidad del producto
+    errors: 
+      Ok:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de error
+          message:
+            type: string
+            description: Mensaje del error
+          error:
+            type: string
+            description: Data del error
+      NotFound:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de error
+          message:
+            type: string
+            description: Mensaje del error
+          error:
+            type: string
+            description: Data del error
+      Unauthorized:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de error
+          message:
+            type: string
+            description: Mensaje del error
+          error:
+            type: string
+            description: Data del error
+      Forbidden:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de error
+          message:
+            type: string
+            description: Mensaje del error
+          error:
+            type: string
+            description: Data del error
+      ServerError:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de error
+          message:
+            type: string
+            description: Mensaje del error
+          error:
+            type: string
+            description: Data del error
